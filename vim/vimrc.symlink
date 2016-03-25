@@ -35,6 +35,7 @@ Plugin 'tpope/vim-sensible'               " sensible defaults for vim
 Plugin 'tpope/vim-surround'               " change surrounding things with other things
 Plugin 'vim-airline/vim-airline'          " fancy status bar
 Plugin 'vim-airline/vim-airline-themes'   " themes for fancy status bar
+Plugin 'edkolev/tmuxline.vim'
 
 call vundle#end() " required
 filetype plugin indent on
@@ -172,7 +173,7 @@ set report=0               " tell us about changes (default 2)
                            " before warning
 
 set nostartofline          " don't jump to the start of line when scrolling
-set scrolloff=13           " keep cursor 10 lines from the top or bottom
+set scrolloff=10           " keep cursor 10 lines from the top or bottom
 
 " Splits --------------------------------------
 
@@ -209,7 +210,6 @@ nnoremap <leader>c<space> :NERDComToggleComment
 
 " NERDTree
 nnoremap <F4> :NERDTreeToggle<CR>
-map <leader>ntf :NERDTreeFind<CR>
 
 " Tabular
 noremap <leader>a= :Tabularize /=<cr>
@@ -231,6 +231,12 @@ let g:ctrlp_match_window_reversed = 0
 " let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': ['<c-v>', '<2-LeftMouse>'], 'AcceptSelection("v")': ['<cr>', '<RightMouse>'] }
 " let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': ['<c-t>'],'AcceptSelection("t")': ['<cr>', '<c-m>'],}
 
+" set customer cache dir
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
 nnoremap <leader>f :CtrlP<CR>
 map <leader>g :CtrlPBuffer<CR>
 map <leader>cf :CtrlPClearCache<CR>
@@ -241,7 +247,6 @@ let g:syntastic_warning_symbol='~'
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_ruby_checkers=['mri']
 nmap <F8>  :SyntasticCheck rubocop<cr>
-nnoremap <leader>ne :lnext<CR>
 
 " Gundo
 if version >= 703
@@ -261,6 +266,8 @@ let g:airline_enable_nerdtree  = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
+
+let g:tmuxline_preset = 'tommy_line'
 
 
 "----------------------------------------------------------------------------

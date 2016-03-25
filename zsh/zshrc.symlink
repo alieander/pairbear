@@ -4,6 +4,12 @@ export ZSH=$HOME/.dotfiles
 # your project folder that we can `c [tab]` to
 export PROJECTS=~/Projects
 
+# mount ~/bin on path if it exists
+if [ -d $HOME/bin ]
+then
+  PATH=$PATH:$HOME/bin
+fi
+
 # source every .zsh file in this rep
 for config_file ($ZSH/**/*.zsh) source $config_file
 
@@ -25,9 +31,6 @@ compinit
 # load every completion after autocomplete loads
 for config_file ($ZSH/**/completion.sh) source $config_file
 
-PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+export TZ=America/Los_Angeles 
 
-if [ -d $HOME/bin ]
-then
-  PATH=$PATH:$HOME/bin
-fi
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
