@@ -1,15 +1,15 @@
 # ~/.tmux.conf
 # Base: https://gist.github.com/721200
-#
-# Adjusted for my comfort.
-#
+
 # -----------------------------------------------------------------------------
 # Global settings
+# -----------------------------------------------------------------------------
 
 # Set prefix key to Ctrl-a
 # unbind-key C-b
 # set-option -g prefix C-a
 
+# Setup some options with bells
 set visual-bell off
 
 # send the prefix to client inside window
@@ -46,7 +46,10 @@ setw -g automatic-rename off
 # enable wm window titles
 set -g set-titles off
 
+
+# -----------------------------------------------------------------------------
 # Key bindings
+# -----------------------------------------------------------------------------
 
 # reload settings
 bind-key R source-file ~/.tmux.conf
@@ -120,7 +123,6 @@ bind-key * list-clients
 # redisplay (default key in tmux is 'r')
 bind-key C-l refresh-client
 
-
 ## Split windows like vim
 
 # alternatively, use better mnemonics for horizontal/vertical splits
@@ -134,8 +136,14 @@ bind-key -r > resize-pane -R 3
 bind-key -r + resize-pane -U 1
 bind-key -r = resize-pane -D 1
 
+bind-key t send-keys -t right Up Enter
+#bind-key t send-keys -t right rs Enter
+bind-key y send-keys -t right rrs Enter
 
-## Statusbar settings
+# -----------------------------------------------------------------------------
+# Statusbar settings
+# -----------------------------------------------------------------------------
+
 # much of this is assuming use of tmuxline.vim plugin.
 
 # toggle statusbar
