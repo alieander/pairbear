@@ -36,6 +36,8 @@ Plugin 'tpope/vim-surround'               " change surrounding things with other
 Plugin 'vim-airline/vim-airline'          " fancy status bar
 Plugin 'vim-airline/vim-airline-themes'   " themes for fancy status bar
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'christoomey/vim-tmux-navigator'   " tmux vim seemless nav
+Plugin 'gcmt/wildfire.vim'                " select next closest block
 
 call vundle#end() " required
 filetype plugin indent on
