@@ -46,36 +46,34 @@ need_push () {
   fi
 }
 
-rb_prompt(){
-  s1=$(which ruby)
-  if [[ "$s1" != '/usr/bin/ruby' ]]
+ruby_version() {
+  if (( $+commands[rbenv] ))
   then
-    echo "%{$fg_bold[yellow]%}$(ruby --version | awk '{print $2}')%{$reset_color%}"
+    echo "$(rbenv version | awk '{print $1}')"
+  fi
+
+  if (( $+commands[rvm-prompt] ))
+  then
+    echo "$(rvm-prompt | awk '{print $1}')"
+  fi
+}
+
+rb_prompt() {
+  if ! [[ -z "$(ruby_version)" ]]
+  then
+    echo "%{$fg_bold[yellow]%}$(ruby_version)%{$reset_color%} "
   else
     echo ""
   fi
 }
 
-directory_name(){
+directory_name() {
   echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
 }
 
-r_directory_name(){
-  echo "%{$fg_bold[red]%}%/%\/%{$reset_color%}"
-}
-
-host_prompt(){
-  echo "%{$fg_bold[yellow]%}%m%{$reset_color%}"
-}
-
-smilies(){
-  echo "%(?.%{$fg_bold[green]%}:%)%{$reset_color%}.%{$fg_bold[red]%}:(%{$reset_color%})"
-}
-
-export PROMPT=$'\n$(host_prompt) in $(directory_name) $(git_dirty)$(need_push)\n$(smilies)  '
-PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+export PROMPT=$'\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n› '
 set_prompt () {
-  export RPROMPT="$(r_directory_name) $(rb_prompt) "
+  export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
 
 precmd() {
