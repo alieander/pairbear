@@ -6,16 +6,16 @@
 # -----------------------------------------------------------------------------
 
 # Set prefix key to Ctrl-a
-# unbind-key C-b
-# set-option -g prefix C-a
+unbind-key C-b
+set-option -g prefix C-a
 
 # Setup some options with bells
-set visual-bell off
+# set visual-bell off
 set -g bell-action any # listen for activity on all windows
 
 # send the prefix to client inside window
-bind-key C-t send-prefix
-bind-key t send-prefix
+# bind-key C-t send-prefix
+# bind-key t send-prefix
 
 # open a man page in new window
 bind-key / command-prompt "split-window 'exec man %%'"
@@ -25,9 +25,6 @@ set -g history-limit 99999
 
 # start window indexing at zero (default)
 set -g base-index 0
-
-# instructs tmux to expect UTF-8 sequences
-setw -g utf8 on
 
 # tell tmux to use 256 colour terminal
 set -g default-terminal "screen-256color"
@@ -87,7 +84,8 @@ bind-key ] paste-buffer -s \015
 setw -g mode-keys vi
 
 # enable mouse selection in copy mode
-setw -g mode-mouse on
+# setw -g mode-mouse on
+set-option -g -q mouse on
 
 # list all paste buffers (default key is '#')
 bind-key b list-buffers
