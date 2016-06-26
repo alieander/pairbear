@@ -28,3 +28,6 @@ defaults write com.apple.finder FXEnableSlowAnimation -bool false
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
+
+# Show hidden files
+defaults write com.apple.finder AppleShowAllFiles YES
