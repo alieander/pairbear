@@ -17,8 +17,6 @@ Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
 Plugin 'AndrewRadev/splitjoin.vim'        " split one-liners into equivalant multiliner
 Plugin 'airblade/vim-gitgutter'           " git status markers in left gutter
 Plugin 'altercation/vim-colors-solarized' " solarized color support
-Plugin 'vim-airline/vim-airline'          " fancy status bar
-Plugin 'vim-airline/vim-airline-themes'   " themes for fancy status bar
 Plugin 'godlygeek/tabular'                " Alignment of code on things
 Plugin 'jiangmiao/auto-pairs'             " Insert or delete brackets, parens, quotes in pair
 Plugin 'jlanzarotta/bufexplorer'          " list view and manage buffers (<leader>be)
@@ -35,6 +33,8 @@ Plugin 'tpope/vim-rails'                  " Rails support in vim
 Plugin 'tpope/vim-repeat'                 " remaps `.` for better plugin support
 Plugin 'tpope/vim-sensible'               " sensible defaults for vim
 Plugin 'tpope/vim-surround'               " change surrounding things with other things
+Plugin 'vim-airline/vim-airline'          " fancy status bar
+Plugin 'vim-airline/vim-airline-themes'   " themes for fancy status bar
 
 call vundle#end() " required
 filetype plugin indent on
