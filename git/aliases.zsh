@@ -21,3 +21,5 @@ alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias gis='git status '
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias gsu="git push --set-upstream origin"
+# Delete a branch both locally and on the server
+alias gitdelete="!sh -c 'git push origin :refs/heads/$1 && git remote prune origin && git branch -D $1' -"
