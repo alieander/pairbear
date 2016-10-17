@@ -3,8 +3,10 @@
 --ignore-dir=coverage
 --ignore-dir=log
 --ignore-dir=tmp
+--ignore-dir=pkg
 --ignore-dir=gems
 --ignore-dir=bundle
+--ignore-dir=wsdl
 --sort-files
 --type-add=css=.rake
 --type-add=css=.sass
