@@ -10,7 +10,7 @@ fi
 #alias gl='git pull --prune'
 alias glog="git --no-pager log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative -10"
 alias glogf="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-alias gp='git push'
+alias gp='git pull'
 alias gpl='git pull'
 alias gd='git diff'
 alias gc='git commit -v'
@@ -18,7 +18,7 @@ alias gca='git commit -av'
 alias ga='git add '
 alias g.='git add .'
 alias gco='git checkout'
-alias gb='git branch'
+alias gb='git checkout -b '
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias gis='git status '
 alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"

@@ -6,6 +6,7 @@
 --ignore-dir=pkg
 --ignore-dir=gems
 --ignore-dir=bundle
+--ignore-dir=test/cassette
 --ignore-dir=wsdl
 --sort-files
 --type-add=css=.rake
