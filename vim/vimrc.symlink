@@ -46,7 +46,6 @@ Plug 'dsawardekar/ember.vim'
 
 call plug#end()
 
-"call vundle#end() " required
 filetype plugin indent on
 
 "-----------------------------------------------------
