@@ -33,10 +33,13 @@ set -g default-terminal "screen-256color"
 setw -g xterm-keys on
 
 # control automatic window renaming
-setw -g automatic-rename off
+setw -g automatic-rename on
 
 # enable wm window titles
 set -g set-titles off
+
+# lower escape pause to 0 (default: 500ms)
+set -sg escape-time 0
 
 
 # -----------------------------------------------------------------------------
@@ -119,6 +122,7 @@ bind-key C-t last-window
 
 # new window
 bind-key c new-window
+bind-key C command-prompt -p "Window Name: " "new-window -n '%%'"
 
 # next
 bind-key -r Space next-window
