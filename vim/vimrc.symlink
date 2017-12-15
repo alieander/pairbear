@@ -10,36 +10,43 @@
 set nocompatible " be iMproved, required
 filetype off     " required
 
-set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
+"set rtp+=~/.vim/bundle/Vundle.vim " set the runtime path to include Vundle and initialize
+"call vundle#begin()
+"Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
 
-Plugin 'AndrewRadev/splitjoin.vim'        " split one-liners into equivalant multiliner
-Plugin 'airblade/vim-gitgutter'           " git status markers in left gutter
-Plugin 'altercation/vim-colors-solarized' " solarized color support
-Plugin 'godlygeek/tabular'                " Alignment of code on things
-Plugin 'jiangmiao/auto-pairs'             " Insert or delete brackets, parens, quotes in pair
-Plugin 'jlanzarotta/bufexplorer'          " list view and manage buffers (<leader>be)
-Plugin 'kien/ctrlp.vim'                   " fuzzy search and text expansion for vim
-Plugin 'mileszs/ack.vim'                  " Ack search for vim
-Plugin 'myusuf3/numbers.vim'              " line numbers relative/absolute helper
-Plugin 'scrooloose/nerdcommenter'         " better auto-commenting (<leader>c<space)
-Plugin 'scrooloose/nerdtree'              " vim filebrowser
-Plugin 'scrooloose/syntastic'             " Syntax checking and highlighting
-Plugin 'sjl/gundo.vim'                    " undo tree browser and manager
-Plugin 'tpope/vim-bundler'                " bundler support
-Plugin 'tpope/vim-fugitive'               " Git in vim support
-Plugin 'tpope/vim-rails'                  " Rails support in vim
-Plugin 'tpope/vim-repeat'                 " remaps `.` for better plugin support
-Plugin 'tpope/vim-sensible'               " sensible defaults for vim
-Plugin 'tpope/vim-surround'               " change surrounding things with other things
-Plugin 'vim-airline/vim-airline'          " fancy status bar
-Plugin 'vim-airline/vim-airline-themes'   " themes for fancy status bar
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'christoomey/vim-tmux-navigator'   " tmux vim seemless nav
-Plugin 'gcmt/wildfire.vim'                " select next closest block
+call plug#begin('~/.vim/plugged')
 
-call vundle#end() " required
+Plug 'AndrewRadev/splitjoin.vim'        " split one-liners into equivalant multiliner
+Plug 'airblade/vim-gitgutter'           " git status markers in left gutter
+Plug 'altercation/vim-colors-solarized' " solarized color support
+Plug 'christoomey/vim-tmux-navigator'   " tmux vim seemless nav
+Plug 'edkolev/tmuxline.vim'
+Plug 'gcmt/wildfire.vim'                " select next closest block
+Plug 'godlygeek/tabular'                " Alignment of code on things
+Plug 'janko-m/vim-test'                 " run ruby tests
+Plug 'jgdavey/tslime.vim'               " run things in tmux panes/windows
+Plug 'jiangmiao/auto-pairs'             " Insert or delete brackets, parens, quotes in pair
+Plug 'jlanzarotta/bufexplorer'          " list view and manage buffers (<leader>be)
+Plug 'kien/ctrlp.vim'                   " fuzzy search and text expansion for vim
+Plug 'mileszs/ack.vim'                  " Ack search for vim
+Plug 'myusuf3/numbers.vim'              " line numbers relative/absolute helper
+Plug 'scrooloose/nerdcommenter'         " better auto-commenting (<leader>c<space)
+Plug 'scrooloose/nerdtree'              " vim filebrowser
+Plug 'scrooloose/syntastic'             " Syntax checking and highlighting
+Plug 'sjl/gundo.vim'                    " undo tree browser and manager
+Plug 'tpope/vim-bundler'                " bundler support
+Plug 'tpope/vim-fugitive'               " Git in vim support
+Plug 'tpope/vim-rails'                  " Rails support in vim
+Plug 'tpope/vim-repeat'                 " remaps `.` for better plugin support
+Plug 'tpope/vim-sensible'               " sensible defaults for vim
+Plug 'tpope/vim-surround'               " change surrounding things with other things
+Plug 'vim-airline/vim-airline'          " fancy status bar
+Plug 'vim-airline/vim-airline-themes'   " themes for fancy status bar
+Plug 'dsawardekar/ember.vim'
+
+call plug#end()
+
+"call vundle#end() " required
 filetype plugin indent on
 
 "-----------------------------------------------------
@@ -198,8 +205,8 @@ colorscheme solarized
 "----------------------------------------------------------------------------
 
 " Ack
-map <leader>a :Ack<space>
-map <leader>a* :Ack<space><cword><CR>
+map <leader>A :Ack<space>
+map <leader>A* :Ack<space><cword><CR>
 set grepprg=ack
 set grepformat=%f:%l:%m
 
@@ -224,8 +231,8 @@ noremap <leader>a, :Tabularize /,<cr>
 noremap <leader>a<Bar> :Tabularize /<Bar><cr>
 
 " CtrlP
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,.git,*/bundle/*
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,.git,*/bundle/*,*/log/*,*/pkg/*
+"let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
 let g:ctrlp_match_window_bottom = 1
 let g:ctrlp_match_window_reversed = 0
@@ -270,6 +277,21 @@ let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 
 let g:tmuxline_preset = 'tommy_line'
+
+" tslime
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window  = 1
+
+nmap <leader>Q <Plug>SetTmuxVars
+
+" vim-test
+let test#strategy = "tslime"
+
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>V :TestVisit<CR>
+nmap <silent> <leader>S :TestSuite<CR>
 
 
 "----------------------------------------------------------------------------
