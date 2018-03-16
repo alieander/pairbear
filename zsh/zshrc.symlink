@@ -10,8 +10,19 @@ then
   PATH=$PATH:$HOME/bin
 fi
 
+DEBUG_SHELL=0
+# zmodload zsh/zprof # UNCOMMENT FOR PROFILING
 # source every .zsh file in this rep
-for config_file ($ZSH/**/*.zsh) source $config_file
+for config_file ($ZSH/**/*.zsh); do
+  if [ $DEBUG_SHELL -eq 1 ]; then
+    echo $config_file
+    source $config_file
+  else
+    source $config_file
+  fi
+done
+
+
 
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
@@ -25,8 +36,12 @@ fi
 #}
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
+autoload -Uz compinit
+if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+  compinit
+else
+  compinit -C
+fi
 
 # load every completion after autocomplete loads
 for config_file ($ZSH/**/completion.sh) source $config_file
@@ -34,3 +49,4 @@ for config_file ($ZSH/**/completion.sh) source $config_file
 export TZ=America/Los_Angeles 
 
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+# zprof # UNCOMMENT FOR PROFILING

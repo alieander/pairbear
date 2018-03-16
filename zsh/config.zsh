@@ -27,9 +27,9 @@ setopt PROMPT_SUBST
 
 setopt APPEND_HISTORY       # adds history
 setopt EXTENDED_HISTORY     # add timestamps to history
-setopt HIST_IGNORE_ALL_DUPS # don't record dupes in history
+setopt HIST_IGNORE_ALL_DUPS # dont record dupes in history
 setopt HIST_REDUCE_BLANKS
-setopt HIST_VERIFY          # don't execute history right away, instead set prompt to command
+setopt HIST_VERIFY          # dont execute history right away, instead set prompt to command
 setopt INC_APPEND_HISTORY   # adds history incrementally and share it across sessions
 setopt SHARE_HISTORY        # share history between sessions
 
