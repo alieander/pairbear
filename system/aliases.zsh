@@ -1,7 +1,7 @@
 # grc overides for ls
 #   Made possible through contributions from generous benefactors like
 #   `brew install coreutils`
-if $(gls &>/dev/null)
+if $(which gls &>/dev/null)
 then
   gls_command='gls'
   gls_color='--color'
