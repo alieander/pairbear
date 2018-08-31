@@ -1,4 +1,4 @@
-"-----------------------------------------------------
+"----------------------------------------------------
 " Plug (start)
 "-----------------------------------------------------
 
@@ -19,18 +19,24 @@ Plug 'janko-m/vim-test'                 " run ruby tests
 Plug 'jgdavey/tslime.vim'               " run things in tmux panes/windows
 Plug 'jiangmiao/auto-pairs'             " Insert or delete brackets, parens, quotes in pair
 Plug 'jlanzarotta/bufexplorer'          " list view and manage buffers (<leader>be)
-Plug 'kien/ctrlp.vim'                   " fuzzy search and text expansion for vim
+Plug 'junegunn/vim-github-dashboard'
+Plug 'junegunn/vim-peekaboo'
+Plug 'ctrlpvim/ctrlp.vim'               " fuzzy search and text expansion for vim
+Plug 'kchmck/vim-coffee-script'
 Plug 'mileszs/ack.vim'                  " Ack search for vim
 Plug 'mxw/vim-jsx'                      " JSX Highlighting
 Plug 'myusuf3/numbers.vim'              " line numbers relative/absolute helper
+Plug 'nikvdp/ejs-syntax'
 Plug 'pangloss/vim-javascript'          " JS Highlighting
+Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdcommenter'         " better auto-commenting (<leader>c<space)
 Plug 'scrooloose/nerdtree'              " vim filebrowser
-Plug 'sjl/gundo.vim'                    " undo tree browser and manager
+Plug 'mbbill/undotree'                  " undo tree browser and manager
 Plug 'tpope/vim-bundler'                " bundler support
 Plug 'tpope/vim-fugitive'               " Git in vim support
 Plug 'tpope/vim-rails'                  " Rails support in vim
 Plug 'tpope/vim-repeat'                 " remaps `.` for better plugin support
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-sensible'               " sensible defaults for vim
 Plug 'tpope/vim-surround'               " change surrounding things with other things
 Plug 'vim-airline/vim-airline'          " fancy status bar
@@ -48,7 +54,7 @@ filetype plugin indent on
 " ----------------------------------------------------------------------------
 "  Generic Settings
 " ----------------------------------------------------------------------------
-set shell=/bin/bash
+set shell=/bin/zsh
 set noswapfile
 set fileformat=unix
 
@@ -88,6 +94,10 @@ set winwidth=80       "default 20"
 " better buffer management
 set hidden
 
+if has("persistent_undo")
+  set undodir=~/.undodir/
+  set undofile
+endif
 
 " ----------------------------------------------------------------------------
 "  Generic Remapping
@@ -154,6 +164,9 @@ map <leader>srt :!sort<CR>
 " Ruby
 map <leader>r19 :s/\v:([0-9a-z_]+)\s+\=\>\s+/\1: /g<CR>
 map <leader>r18 :s/\v([0-9a-z_"']+):\s+(.*)/:\1 => \2/g<CR>
+
+" Spell Checking
+map <leader>sc :setlocal spell<CR>
 
 
 " ----------------------------------------------------------------------------
@@ -249,9 +262,10 @@ map <leader>cf :CtrlPClearCache<CR>
 "let g:syntastic_ruby_checkers=['mri']
 "nmap <F8>  :SyntasticCheck rubocop<cr>
 
+
 " ALE
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '~'
+let g:ale_sign_error = ''
+let g:ale_sign_warning = 'ﰣ'
 "let g:ale_set_highlights = 0
 let g:ale_fixers = {
     \   'css': ['prettier'],
@@ -261,25 +275,34 @@ let g:ale_fixers = {
     \   'md': ['prettier'],
     \   'ruby': ['rubocop'],
     \}
-let g:ale_fix_on_save = 1
 
-" Gundo
-if version >= 703
-  nnoremap <F5> :GundoToggle<CR>
-  let g:gundo_width = 40
-  let g:gundo_preview_height = 20
-  let g:gundo_preview_bottom = 1
-endif
+let g:ale_linters = {
+    \   'css': ['prettier'],
+    \   'erb': ['erb'],
+    \   'js': ['prettier'],
+    \   'json': ['prettier'],
+    \   'md': ['prettier'],
+    \   'ruby': ['rubocop'],
+    \}
+
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 1
+let g:ale_fix_on_save = 0
+map <leader>at :ALEFix<CR>
+
+" UndotreeToggle
+" nnoremap <F5> :UndotreeToggle<cr>
+nmap <leader>u :UndotreeToggle<cr>
 
 " AirLine
 let g:airline_powerline_fonts  = 1
 let g:airline_theme            = 'solarized'
 let g:airline_enable_ctrlp     = 1
-let g:airline_enable_gundo     = 1
+let g:airline_enable_fugitive  = 1
+let g:airline_enable_undotree  = 1
 let g:airline_enable_nerdtree  = 1
 
 let g:airline#extensions#branch#enabled = 1
-"let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 
@@ -306,6 +329,9 @@ nmap <silent> <leader>S :TestSuite<CR>
 "----------------------------------------------------------------------------
 
 set gdefault "this will make \g the default in searches.
+if exists('&inccommand')
+  set inccommand=split
+endif
 
 " always add \v . This makes searches require less escaping and act like egrep
 " this is literally called `very magic` mode...
