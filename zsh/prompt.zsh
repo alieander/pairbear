@@ -9,40 +9,41 @@ else
   git="/usr/bin/git"
 fi
 
-git_branch() {
-  echo $($git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
-}
-
-git_dirty() {
-  if $(! $git status -s &> /dev/null)
+git_prompt() {
+  local branch_name=$($git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  local dirty=$(needs_push)
+  if [[ ! $branch_name ]]
   then
-    echo ""
   else
-    if [[ $($git status --porcelain) == "" ]]
+    if [[ $dirty == "" ]]
     then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+      echo -n " $(print_icon VCS_BRANCH_ICON) $(fC green)$branch_name$(cC)"
+      echo -n " $(untracked)"
     else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+      echo -n " $(print_icon VCS_BRANCH_ICON) $(fC red)$branch_name$(cC)"
+      echo -n " $(unpushed)$(untracked)"
     fi
   fi
 }
 
-git_prompt_info () {
- ref=$($git symbolic-ref HEAD 2>/dev/null) || return
-# echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
- echo "${ref#refs/heads/}"
-}
-
-unpushed () {
+needs_push() {
   $git cherry -v @{upstream} 2>/dev/null
 }
 
-need_push () {
-  if [[ $(unpushed) == "" ]]
-  then
-    echo " "
-  else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
+unpushed() {
+  echo -n "$(fC magenta)$(print_icon VCS_UNSTAGED_ICON)$(fC) "
+}
+
+untracked() {
+  if [[ -n $($git status --porcelain | grep -E '^\?\?' 2> /dev/null | tail -n1) ]]; then
+    echo -n "$(fC yellow)$(print_icon 'VCS_UNTRACKED_ICON')$(cC)"
+  fi
+}
+
+background_jobs(){
+  local background_jobs_number=${$(jobs -l | wc -l)// /}
+  if [[ background_jobs_number -gt 0 ]]; then
+    echo -n " $(fC blue)$(print_icon ASTERISK) $(print_icon LEFT_SUBSEGMENT_SEPARATOR)$(cC)"
   fi
 }
 
@@ -50,32 +51,55 @@ rb_prompt(){
   s1=$(which ruby)
   if [[ "$s1" != '/usr/bin/ruby' ]]
   then
-    echo "%{$fg_bold[yellow]%}$(ruby --version | awk '{print $2}')%{$reset_color%}"
-  else
-    echo ""
+    echo -n "$(fC yellow)$(print_icon RIGHT_SUBSEGMENT_SEPARATOR) " \
+     "$(ruby --version | awk '{print $2}'| sed -E "s/p[0-9]+//")" \
+     "$(fC red)$(print_icon RUBY_ICON)$(fC)"
   fi
 }
 
 directory_name(){
-  echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
+  echo " $(fC cyan)%1/ $(print_icon LEFT_SUBSEGMENT_SEPARATOR)$(cC)"
 }
 
-r_directory_name(){
-  echo "%{$fg_bold[red]%}%/%\/%{$reset_color%}"
+full_directory(){
+  echo "$(fC red)%~%\/$(cC)"
 }
 
 host_prompt(){
-  echo "%{$fg_bold[yellow]%}%m%{$reset_color%}"
+  echo "$(fC yellow)%m $(fC yellow)$(print_icon LEFT_SUBSEGMENT_SEPARATOR)"
 }
 
 smilies(){
-  echo "%(?.%{$fg_bold[green]%}:%)%{$reset_color%}.%{$fg_bold[red]%}:(%{$reset_color%})"
+  echo "$(print_icon MULTILINE_LAST_PROMPT_PREFIX)%(?.$(fC green):%).$(fC red):()$(cC)"
 }
 
-export PROMPT=$'\n$(host_prompt) in $(directory_name) $(git_dirty)$(need_push)\n$(smilies)  '
+left_segments(){
+  echo "\n$(print_icon MULTILINE_FIRST_PROMPT_PREFIX)$(host_prompt)$(directory_name)$(background_jobs)$(git_prompt)"
+}
+
+right_segments(){
+  echo "$(full_directory) $(rb_prompt)"
+}
+
+vim_prompt(){
+  VIM_PROMPT=" $(fC yellow)$(print_icon CONSOLE_LINE)$(cC)"
+  local out="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
+  if [[ $out == "" ]]
+  then
+    echo -n "  "
+  else
+    echo -n $out
+  fi
+}
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
-set_prompt () {
-  export RPROMPT="$(r_directory_name) $(rb_prompt) "
+export PROMPT=$'$(left_segments)\n$(smilies)$(vim_prompt) '
+
+set_prompt() {
+  export RPROMPT="$(right_segments)"
+}
+
+function zle-line-init zle-keymap-select {
+  zle reset-prompt
 }
 
 precmd() {

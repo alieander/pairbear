@@ -1,9 +1,3 @@
-if [[ -n $SSH_CONNECTION ]]; then
-  export PS1='%m:%3~$(git_info_for_prompt)%# '
-else
-  export PS1='%3~$(git_info_for_prompt)%# '
-fi
-
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
@@ -48,11 +42,17 @@ setopt COMPLETE_ALIASES
 #bindkey '^[^N' newtab
 #bindkey '^?' backward-delete-char
 
-bindkey -e # emacs bindings
+# VIM style keyboard support
+bindkey -v
+set editing-mode vi
+set blink-matching-paren on
+export KEYTIMEOUT=1
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
+zle -N zle-line-init
+zle -N zle-keymap-select
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
