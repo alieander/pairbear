@@ -8,6 +8,8 @@
 --ignore-dir=bundle
 --ignore-dir=test/cassette
 --ignore-dir=wsdl
+--ignore-dir=public/swagger-ui
+--ignore-dir=node_modules
 --sort-files
 --type-add=css=.rake
 --type-add=css=.sass
