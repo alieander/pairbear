@@ -10,8 +10,8 @@ else
 fi
 
 git_prompt() {
-  local branch_name=$($git rev-parse --abbrev-ref HEAD 2>/dev/null)
-  local dirty=$(needs_push)
+  branch_name=$($git rev-parse --abbrev-ref HEAD 2>/dev/null)
+  dirty=$(needs_push)
   if [[ ! $branch_name ]]
   then
   else
@@ -24,6 +24,8 @@ git_prompt() {
       echo -n " $(unpushed)$(untracked)"
     fi
   fi
+  unset branch_name
+  unset dirty
 }
 
 needs_push() {
@@ -41,10 +43,11 @@ untracked() {
 }
 
 background_jobs(){
-  local background_jobs_number=${$(jobs -l | wc -l)// /}
+  background_jobs_number=${$(jobs -l | wc -l)// /}
   if [[ background_jobs_number -gt 0 ]]; then
     echo -n " $(fC blue)$(print_icon ASTERISK) $(print_icon LEFT_SUBSEGMENT_SEPARATOR)$(cC)"
   fi
+  unset background_jobs_number
 }
 
 rb_prompt(){
@@ -55,6 +58,7 @@ rb_prompt(){
      "$(ruby --version | awk '{print $2}'| sed -E "s/p[0-9]+//")" \
      "$(fC red)$(print_icon RUBY_ICON)$(fC)"
   fi
+  unset s1
 }
 
 directory_name(){
@@ -83,17 +87,19 @@ right_segments(){
 
 vim_prompt(){
   VIM_PROMPT=" $(fC yellow)$(print_icon CONSOLE_LINE)$(cC)"
-  local out="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
+  out="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}"
   if [[ $out == "" ]]
   then
     echo -n "  "
   else
     echo -n $out
   fi
+  unset VIM_PROMPT
+  unset out
 }
+
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 export PROMPT=$'$(left_segments)\n$(smilies)$(vim_prompt) '
-
 set_prompt() {
   export RPROMPT="$(right_segments)"
 }
