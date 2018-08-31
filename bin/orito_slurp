@@ -1,0 +1,45 @@
+#!/usr/local/bin/ruby
+# frozen_string_literal: true
+
+PATH_ROOT = '/Users/tommy/Downloads'.freeze
+PATH_4K_ZIP = '/Orito/Orito4kzips/'.freeze
+PATH_QHD_ZIP = '/Orito/OritoQHDzips/'.freeze
+PATH_FILES = '/Orito/OritoWalls2018/'.freeze
+
+require 'zip'
+require 'fileutils'
+
+Dir.chdir(PATH_ROOT)
+four_k = Dir.glob('*4k*.zip')
+qhd = Dir.glob('*QHD*.zip')
+
+(four_k + qhd).each do |filename|
+  Zip::File.open(filename) do |zipfile|
+    zipfile.each do |entry|
+      puts entry.name
+      new_file = nil
+      if entry.name =~ /4k/
+        new_file = "#{PATH_ROOT}#{PATH_FILES}4k/#{entry.name}"
+      elsif entry.name =~ /1600p/
+        new_file = "#{PATH_ROOT}#{PATH_FILES}1600p/#{entry.name}"
+      elsif entry.name =~ /1440p/
+        new_file = "#{PATH_ROOT}#{PATH_FILES}1440p/#{entry.name}"
+      end
+      next unless new_file
+      next if File.exist? new_file
+      puts "Creating file: #{new_file}"
+      entry.extract(new_file)
+    end
+  end
+  origin_file = "#{PATH_ROOT}/#{filename}"
+  destination_file = nil
+  if filename =~ /4k/
+    destination_file = "#{PATH_ROOT}#{PATH_4K_ZIP}#{filename}"
+  elsif filename =~ /QHD/
+    destination_file = "#{PATH_ROOT}#{PATH_QHD_ZIP}#{filename}"
+  end
+  next unless destination_file
+  puts "Moving zipfile: from #{origin_file}"
+  puts "              :   to #{destination_file}"
+  FileUtils.mv(origin_file, destination_file)
+end
