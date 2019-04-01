@@ -1,0 +1,7 @@
+set -x
+brew reinstall chunkwm
+codesign -fs "chunkwm-cert" $(brew --prefix chunkwm)/bin/chunkwm
+brew services restart chunkwm
+
+brew reinstall skhd
+brew services restart skhd

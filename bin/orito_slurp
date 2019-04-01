@@ -1,45 +1,90 @@
-#!/usr/local/bin/ruby
+#!ruby
 # frozen_string_literal: true
 
 PATH_ROOT = '/Users/tommy/Downloads'.freeze
-PATH_4K_ZIP = '/Orito/Orito4kzips/'.freeze
-PATH_QHD_ZIP = '/Orito/OritoQHDzips/'.freeze
 PATH_FILES = '/Orito/OritoWalls2018/'.freeze
 
 require 'zip'
 require 'fileutils'
 
-Dir.chdir(PATH_ROOT)
-four_k = Dir.glob('*4k*.zip')
-qhd = Dir.glob('*QHD*.zip')
+# oritio zip file handler
+class OritoZip
+  def initialize(filename)
+    @filename = filename
+    @origin_filename = "#{PATH_ROOT}/#{filename}"
+  end
 
-(four_k + qhd).each do |filename|
-  Zip::File.open(filename) do |zipfile|
-    zipfile.each do |entry|
-      puts entry.name
-      new_file = nil
-      if entry.name =~ /4k/
-        new_file = "#{PATH_ROOT}#{PATH_FILES}4k/#{entry.name}"
-      elsif entry.name =~ /1600p/
-        new_file = "#{PATH_ROOT}#{PATH_FILES}1600p/#{entry.name}"
-      elsif entry.name =~ /1440p/
-        new_file = "#{PATH_ROOT}#{PATH_FILES}1440p/#{entry.name}"
+  def archive
+    return unless destination_filename
+    puts "|   Moving zip    : from #{origin_filename}"
+    puts "|                 :   to #{destination_filename}"
+    FileUtils.mv(origin_filename, destination_filename)
+  end
+
+  def destination_filename
+    @destination_filename ||=
+      "#{PATH_ROOT}/Orito/Orito#{zip_quality}zips/#{filename}"
+  end
+
+  def process
+    Zip::File.open(filename) do |zipfile|
+      puts '-' * 79
+      zipfile.each do |entry|
+        OritoZipEntry.process entry
       end
-      next unless new_file
-      next if File.exist? new_file
-      puts "Creating file: #{new_file}"
-      entry.extract(new_file)
+      puts '-' * 79
     end
   end
-  origin_file = "#{PATH_ROOT}/#{filename}"
-  destination_file = nil
-  if filename =~ /4k/
-    destination_file = "#{PATH_ROOT}#{PATH_4K_ZIP}#{filename}"
-  elsif filename =~ /QHD/
-    destination_file = "#{PATH_ROOT}#{PATH_QHD_ZIP}#{filename}"
+
+  def zip_quality
+    @zip_quality ||= filename.match(/4k|QHD/).to_a.first
   end
-  next unless destination_file
-  puts "Moving zipfile: from #{origin_file}"
-  puts "              :   to #{destination_file}"
-  FileUtils.mv(origin_file, destination_file)
+
+  private
+
+  attr_reader :filename, :origin_filename
+end
+
+# oritio zip entry handler
+class OritoZipEntry
+  def self.process(entry)
+    new(entry).process
+  end
+
+  def initialize(entry)
+    @entry = entry
+  end
+
+  def entry_quality
+    entry.name.match(/4k|1600p|1440p/).to_a.first
+  end
+
+  def destination_filename
+    @destination_filename ||=
+      "#{PATH_ROOT}#{PATH_FILES}#{entry_quality}/#{entry.name}"
+  end
+
+  def process
+    puts "| #{entry.name}"
+    return if File.exist? destination_filename.to_s
+    puts "|   Creating file : #{destination_filename}"
+    puts
+    entry.extract(destination_filename)
+  end
+
+  private
+
+  attr_reader :entry
+end
+
+# Located all files in PATH_ROOT that glob match 4k or QHD and process them
+
+Dir.chdir(PATH_ROOT)
+four_k = Dir.glob('*4k*.zip')
+qhd    = Dir.glob('*QHD*.zip')
+
+(four_k + qhd).each do |filename|
+  zip = OritoZip.new filename
+  zip.process
+  zip.archive
 end
