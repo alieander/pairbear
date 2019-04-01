@@ -26,7 +26,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'mileszs/ack.vim'                  " Ack search for vim
 Plug 'mxw/vim-jsx'                      " JSX Highlighting
 Plug 'myusuf3/numbers.vim'              " line numbers relative/absolute helper
-Plug 'nikvdp/ejs-syntax'
+"Plug 'nikvdp/ejs-syntax'
 Plug 'pangloss/vim-javascript'          " JS Highlighting
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdcommenter'         " better auto-commenting (<leader>c<space)
@@ -42,6 +42,15 @@ Plug 'tpope/vim-surround'               " change surrounding things with other t
 Plug 'vim-airline/vim-airline'          " fancy status bar
 Plug 'vim-airline/vim-airline-themes'   " themes for fancy status bar
 Plug 'w0rp/ale'                         " completion, sytax checking, etc.
+
+if has('nvim')
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+"let g:deoplete#enable_at_startup = 1
 
 call plug#end()
 
@@ -274,6 +283,7 @@ let g:ale_fixers = {
     \   'json': ['prettier'],
     \   'md': ['prettier'],
     \   'ruby': ['rubocop'],
+    \   'go': ['gofmt'],
     \}
 
 let g:ale_linters = {
@@ -283,12 +293,13 @@ let g:ale_linters = {
     \   'json': ['prettier'],
     \   'md': ['prettier'],
     \   'ruby': ['rubocop'],
+    \   'go': ['gofmt'],
     \}
 
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 1
 let g:ale_fix_on_save = 0
-map <leader>at :ALEFix<CR>
+map <leader>af :ALEFix<CR>
 
 " UndotreeToggle
 " nnoremap <F5> :UndotreeToggle<cr>
