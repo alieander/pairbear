@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 PATH_ROOT = '/Users/tommy/Downloads'.freeze
-PATH_FILES = '/Orito/OritoWalls2018/'.freeze
+PATH_FILES = '/Orito/OritoWalls/'.freeze
 
 require 'zip'
 require 'fileutils'
