@@ -4,6 +4,7 @@ hub_path=$(which hub)
 if [[ -f $hub_path ]]
 then
   alias git=$hub_path
+  alias gpr="git pull-request"
 fi
 
 # The rest of my fun git aliases
