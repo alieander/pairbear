@@ -1,6 +1,6 @@
 case $OSTYPE in
   *"darwin"*)
-    chruby_dir=/usr/local/opt/chruby/share/chruby
+    chruby_dir=/opt/homebrew/opt/chruby/share/chruby
     ;;
   *"linux"*)
     chruby_dir=/usr/local/share/chruby
