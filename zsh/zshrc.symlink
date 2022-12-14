@@ -10,6 +10,11 @@ then
   PATH=$PATH:$HOME/bin
 fi
 
+if [ -d $HOME/.dotfiles/bin ]
+then
+  PATH=$PATH:$HOME/.dotfiles/bin
+fi
+
 if [ -d /opt/homebrew ]
 then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -42,11 +47,7 @@ fi
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -Uz compinit
-if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-  compinit
-else
-  compinit -C
-fi
+compinit -C
 
 # load every completion after autocomplete loads
 for config_file ($ZSH/**/completion.sh) source $config_file
