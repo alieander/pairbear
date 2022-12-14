@@ -10,6 +10,11 @@ then
   PATH=$PATH:$HOME/bin
 fi
 
+if [ -d /opt/homebrew ]
+then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 DEBUG_SHELL=0
 # zmodload zsh/zprof # UNCOMMENT FOR PROFILING
 # source every .zsh file in this rep
@@ -58,12 +63,3 @@ if [ -f '/Users/tommy/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/tommy/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/tommy/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
-# Added by eng-bootstrap 2022-02-14 13:37:29
-export PATH=$PATH:/usr/local/google-cloud-sdk/bin
-
-# Added by eng-bootstrap 2022-02-14 13:41:34
-autoload -Uz compinit && compinit; eval "$(chef shell-init zsh)"
-
-# Added by eng-bootstrap 2022-02-14 13:44:34
-export PATH=$PATH:/usr/local/go/bin
