@@ -23,7 +23,7 @@ Plug 'junegunn/vim-github-dashboard'
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'ctrlpvim/ctrlp.vim'               " fuzzy search and text expansion for vim
+"Plug 'ctrlpvim/ctrlp.vim'               " fuzzy search and text expansion for vim
 Plug 'kchmck/vim-coffee-script'
 Plug 'mileszs/ack.vim'                  " Ack search for vim
 Plug 'mxw/vim-jsx'                      " JSX Highlighting
@@ -256,22 +256,22 @@ noremap <leader>a, :Tabularize /,<cr>
 noremap <leader>a<Bar> :Tabularize /<Bar><cr>
 
 " CtrlP
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,.git,*/bundle/*,*/log/*,*/pkg/*
-"let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.log,.git,*/bundle/*,*/log/*,*/pkg/*
+""let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
-let g:ctrlp_match_window_bottom = 1
-let g:ctrlp_match_window_reversed = 0
+"let g:ctrlp_match_window_bottom = 1
+"let g:ctrlp_match_window_reversed = 0
 
-" let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': ['<c-v>', '<2-LeftMouse>'], 'AcceptSelection("v")': ['<cr>', '<RightMouse>'] }
-" let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': ['<c-t>'],'AcceptSelection("t")': ['<cr>', '<c-m>'],}
+"" let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': ['<c-v>', '<2-LeftMouse>'], 'AcceptSelection("v")': ['<cr>', '<RightMouse>'] }
+"" let g:ctrlp_prompt_mappings = {'AcceptSelection("e")': ['<c-t>'],'AcceptSelection("t")': ['<cr>', '<c-m>'],}
 
-" set customer cache dir
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+"" set customer cache dir
+"let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+"if executable('ag')
+  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"endif
 
-map <leader>g :CtrlPBuffer<CR>
+"map <leader>g :CtrlPBuffer<CR>
 
 " Syntastic
 "let g:syntastic_error_symbol='✗'
@@ -292,6 +292,7 @@ let g:ale_fixers = {
     \   'json': ['prettier'],
     \   'md': ['prettier'],
     \   'ruby': ['standardrb'],
+    \   'py': ['black'],
     \   'go': ['gofmt'],
     \}
 
@@ -302,6 +303,7 @@ let g:ale_linters = {
     \   'json': ['prettier'],
     \   'md': ['prettier'],
     \   'ruby': ['standardrb'],
+    \   'py': ['black'],
     \   'go': ['gofmt'],
     \}
 
