@@ -18,7 +18,7 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
 # Spotlight is a bitch
-sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+# sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 
 # Notification Center
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
