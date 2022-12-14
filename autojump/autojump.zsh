@@ -4,5 +4,6 @@ case $OSTYPE in
     ;;
   *"linux"*)
     [[ -e /usr/share/autojump/autojump.sh ]] && . /usr/share/autojump/autojump.sh
+    [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
     ;;
 esac
