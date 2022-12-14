@@ -52,11 +52,22 @@ background_jobs(){
 
 rb_prompt(){
   s1=$(which ruby)
-  if [[ "$s1" != '/usr/bin/ruby' ]]
+  if [[ "$s2" != '/usr/bin/ruby' ]]
   then
     echo -n "$(fC yellow)$(print_icon RIGHT_SUBSEGMENT_SEPARATOR) " \
      "$(ruby --version | awk '{print $2}'| sed -E "s/p[0-9]+//")" \
      "$(fC red)$(print_icon RUBY_ICON)$(fC)"
+  fi
+  unset s1
+}
+
+py_prompt(){
+  s1=$(pyenv versions | awk '/system/ {print $1}')
+  if [[ "$s1" != '*' ]]
+  then
+    echo -n "$(fC green)$(print_icon RIGHT_SUBSEGMENT_SEPARATOR) " \
+     "$(python --version | awk '{print $2}')" \
+     "$(fC green)$(print_icon PYTHON_ICON)$(fC)"
   fi
   unset s1
 }
@@ -82,7 +93,7 @@ left_segments(){
 }
 
 right_segments(){
-  echo "$(full_directory) $(rb_prompt)"
+  echo "$(full_directory) $(rb_prompt) $(py_prompt)"
 }
 
 vim_prompt(){
