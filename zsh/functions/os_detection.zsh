@@ -24,7 +24,7 @@ case $(uname) in
       ;;
     Linux)
       OS='Linux'
-      os_release_id="$(grep -E '^ID=([a-zA-Z]*)' /etc/os-release | cut -d '=' -f 2)"
+      os_release_id="$(grep -E '^ID=([a-zA-Z]*)' /etc/os-release >/dev/null 2>&1 | cut -d '=' -f 2)"
       case "$os_release_id" in
         *arch*)
         OS_ICON=$(print_icon 'LINUX_ARCH_ICON')
