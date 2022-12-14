@@ -1,4 +1,5 @@
 alias be='bundle exec'
+alias bb='bundle-hack exec'
 alias chr='chruby'
 alias chrs='chruby system'
 
