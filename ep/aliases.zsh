@@ -1,0 +1,1 @@
+alias rubocop="bb rubocop"

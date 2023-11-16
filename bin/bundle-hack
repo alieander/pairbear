@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+EDITOR="nvim"
 BUNDLE="bundle"
 if [[ -x "./vendor/bundle/bundle" ]]; then
 	BUNDLE="withenv ./vendor/bundle/bundle"

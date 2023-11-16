@@ -12,3 +12,5 @@ then
   source "$chruby_dir/chruby.sh"
   source "$chruby_dir/auto.sh"
 fi
+
+RUBIES+=(/home/vagrant/.rubies/*)

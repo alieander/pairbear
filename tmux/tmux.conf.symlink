@@ -145,7 +145,6 @@ bind-key C-l refresh-client
 ## Split windows like vim
 
 # alternatively, use better mnemonics for horizontal/vertical splits
-bind-key - split-window -v
 bind-key _ split-window -v
 bind-key | split-window -h
 
