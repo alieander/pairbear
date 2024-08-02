@@ -47,6 +47,7 @@ Plug 'vim-airline/vim-airline'          " fancy status bar
 Plug 'vim-airline/vim-airline-themes'   " themes for fancy status bar
 Plug 'w0rp/ale'                         " completion, sytax checking, etc.
 Plug 'wakatime/vim-wakatime'            " integration with wakatime.com
+Plug 'jparise/vim-phabricator'          " Phab/Arc Plugin
 
 if has('nvim')
   "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -107,6 +108,12 @@ set winwidth=80       "default 20"
 
 " better buffer management
 set hidden
+
+" folding
+set foldmethod=syntax
+nnoremap <space> za
+set foldlevelstart=10
+highlight Folded guibg=grey guifg=blue
 
 if has("persistent_undo")
   set undodir=~/.undodir/
@@ -282,6 +289,9 @@ noremap <leader>a<Bar> :Tabularize /<Bar><cr>
 "let g:syntastic_ruby_checkers=['mri']
 "nmap <F8>  :SyntasticCheck rubocop<cr>
 
+" Phab things
+let g:phabricator_hosts = ['phab.easypo.net', 'https://phab.easypo.net']
+
 
 " ALE
 let g:ale_enabled = 1
@@ -295,7 +305,7 @@ let g:ale_fixers = {
     \   'json': ['prettier'],
     \   'md': ['prettier'],
     \   'ruby': ['rubocop'],
-    \   'py': ['black'],
+    \   'py': ['flake8'],
     \   'go': ['gofmt'],
     \}
 
@@ -306,7 +316,7 @@ let g:ale_linters = {
     \   'json': ['prettier'],
     \   'md': ['prettier'],
     \   'ruby': ['rubocop'],
-    \   'py': ['black'],
+    \   'py': ['flake8'],
     \   'go': ['gofmt'],
     \}
 

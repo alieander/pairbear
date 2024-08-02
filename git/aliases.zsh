@@ -14,6 +14,7 @@ alias glogf="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %
 alias gp='git pull'
 alias gpl='git pull'
 alias gd='git diff'
+alias gdt='git difftool'
 alias gc='git commit -v'
 alias ga='git add'
 alias gca='git commit -av'
