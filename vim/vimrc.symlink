@@ -46,6 +46,7 @@ Plug 'tpope/vim-surround'               " change surrounding things with other t
 Plug 'vim-airline/vim-airline'          " fancy status bar
 Plug 'vim-airline/vim-airline-themes'   " themes for fancy status bar
 Plug 'w0rp/ale'                         " completion, sytax checking, etc.
+Plug 'wakatime/vim-wakatime'            " integration with wakatime.com
 
 if has('nvim')
   "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
