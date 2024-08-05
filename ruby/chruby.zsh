@@ -13,4 +13,7 @@ then
   source "$chruby_dir/auto.sh"
 fi
 
-RUBIES+=(/home/vagrant/.rubies/*)
+if [ -e $USER='vagrant' ]
+then
+  RUBIES+=(/home/vagrant/.rubies/*)
+fi
