@@ -154,6 +154,7 @@ bind-key -r > resize-pane -R 4
 bind-key -r + resize-pane -U 1
 bind-key -r = resize-pane -D 1
 
+# run previous command in right pane
 bind-key t send-keys -t right Up Enter
 #bind-key t send-keys -t right rs Enter
 bind-key y send-keys -t right rrs Enter
@@ -176,3 +177,16 @@ set -g display-time 1000
 
 # -----------------------------------------------------------------------------
 # vim: fen fdl=0 fdm=marker
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+# set -g @plugin 'tmux-plugins/tmux-sensible'
+
+set -g @plugin 'seebi/tmux-colors-solarized'
+set -g @colors-solarized 'dark'
+
+set -g @plugin 'erikw/tmux-powerline'
+
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
