@@ -277,7 +277,7 @@ noremap <leader>a<Bar> :Tabularize /<Bar><cr>
 "" set customer cache dir
 "let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 "if executable('ag')
-  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 "endif
 
 "map <leader>g :CtrlPBuffer<CR>
@@ -299,26 +299,26 @@ let g:ale_sign_error = ''
 let g:ale_sign_warning = 'ﰣ'
 "let g:ale_set_highlights = 0
 let g:ale_fixers = {
-    \   'css': ['prettier'],
-    \   'erb': ['erb'],
-    \   'js': ['prettier'],
-    \   'json': ['prettier'],
-    \   'md': ['prettier'],
-    \   'ruby': ['rubocop'],
-    \   'py': ['flake8'],
-    \   'go': ['gofmt'],
-    \}
+      \   'css': ['prettier'],
+      \   'erb': ['erb'],
+      \   'js': ['prettier'],
+      \   'json': ['prettier'],
+      \   'md': ['prettier'],
+      \   'ruby': ['rubocop'],
+      \   'py': ['flake8'],
+      \   'go': ['gofmt'],
+      \}
 
 let g:ale_linters = {
-    \   'css': ['prettier'],
-    \   'erb': ['erb'],
-    \   'js': ['prettier'],
-    \   'json': ['prettier'],
-    \   'md': ['prettier'],
-    \   'ruby': ['rubocop'],
-    \   'py': ['flake8'],
-    \   'go': ['gofmt'],
-    \}
+      \   'css': ['prettier'],
+      \   'erb': ['erb'],
+      \   'js': ['prettier'],
+      \   'json': ['prettier'],
+      \   'md': ['prettier'],
+      \   'ruby': ['rubocop'],
+      \   'py': ['flake8'],
+      \   'go': ['gofmt'],
+      \}
 
 let g:ale_ruby_rubocop_executable = './vendor/bundle/bundle'
 let g:ale_use_neovim_diagnostics_api = 1
@@ -427,7 +427,7 @@ autocmd FileType go call UseTabs()
 " ---------------------------------------------------------------------------
 
 function! StripWhitespace ()
-    exec ':%s/ \+$//gc'
+  exec ':%s/ \+$//gc'
 endfunction
 map <leader>s :call StripWhitespace ()<CR>
 
