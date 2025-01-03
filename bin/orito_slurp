@@ -1,8 +1,8 @@
 #!ruby
 # frozen_string_literal: true
 
-PATH_ROOT = '/Users/tommy/Downloads'.freeze
-PATH_FILES = '/Orito/OritoWalls/'.freeze
+PATH_ROOT = '/Users/tommy/Downloads'
+PATH_FILES = '/Orito/OritoWalls/'
 
 require 'zip'
 require 'fileutils'
@@ -16,6 +16,7 @@ class OritoZip
 
   def archive
     return unless destination_filename
+
     puts "|   Moving zip    : from #{origin_filename}"
     puts "|                 :   to #{destination_filename}"
     FileUtils.mv(origin_filename, destination_filename)
@@ -67,6 +68,7 @@ class OritoZipEntry
   def process
     puts "| #{entry.name}"
     return if File.exist? destination_filename.to_s
+
     puts "|   Creating file : #{destination_filename}"
     puts
     entry.extract(destination_filename)
