@@ -16,7 +16,7 @@ typeset -gAH icons
 local LC_ALL="" LC_CTYPE="en_US.UTF-8"
 icons=(
   ASTERISK                       $'\uF069'              # 
-  CONSOLE_LINE                   $'\uFCB5'              # ﲵ
+  CONSOLE_LINE                   $'\u007E'              # ~
   LEFT_SEGMENT_SEPARATOR         $'\uE0B0'              # 
   RIGHT_SEGMENT_SEPARATOR        $'\uE0B2'              # 
   LEFT_SEGMENT_END_SEPARATOR     ' '                    # Whitespace
@@ -107,7 +107,7 @@ icons=(
   LARAVEL_ICON                   $'\ue73f'             # 
   MINUS_ICON                     $'\uf068'              # 
   PLUS_ICON                      $'\uf067'              # 
-  TILDE_ICON                     $'\ufc23'              # ﰣ
+  TILDE_ICON                     $'\uf07E'              # 
 )
 
 # Safety function for printing icons
