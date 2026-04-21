@@ -12,14 +12,10 @@ return {
         null_ls.builtins.formatting.prettier,
 
         -- Ruby
-        -- null_ls.builtins.formatting.rubocop.with({
+        -- null_ls.builtins.diagnostics.rubocop.with({
         --   command = "/home/vagrant/.dotfiles/bin/bundle-hack",
-        --   args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.formatting.rubocop._opts.args),
+        --   args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
         -- }),
-        null_ls.builtins.diagnostics.rubocop.with({
-          command = "/home/vagrant/.dotfiles/bin/bundle-hack",
-          args = vim.list_extend({ "exec", "rubocop" }, null_ls.builtins.diagnostics.rubocop._opts.args),
-        }),
 
         -- Python
         null_ls.builtins.formatting.black,
